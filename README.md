@@ -106,7 +106,7 @@ instance, or the system browser.
     Android supports these additional options:
 
     - __hidden__: set to `yes` to create the browser and load the page, but not show it. The loadstop event fires when loading is complete. Omit or set to `no` (default) to have the browser open and load normally.
-    - __beforeload__: set to `yes` to enable the `beforeload` event to modify which pages are actually loaded in the browser.
+    - __beforeload__: set to enable the `beforeload` event to modify which pages are actually loaded in the browser. Accepted values are `get` to intercept only GET requests, `post` to intercept on POST requests or `yes` to intercept both GET & POST requests. Note that POST requests are not currently supported and will be ignored (if you set `beforeload=post` it will raise an error).
     - __clearcache__: set to `yes` to have the browser's cookie cache cleared before the new window is opened
     - __clearsessioncache__: set to `yes` to have the session cookie cache cleared before the new window is opened
     - __closebuttoncaption__: set to a string to use as the close button's caption instead of a X. Note that you need to localize this value yourself.
@@ -130,7 +130,7 @@ instance, or the system browser.
 
     - __usewkwebview__: set to `yes` to use WKWebView engine for the InappBrowser. Omit or set to `no` (default) to use UIWebView. Note: Using `usewkwebview=yes` requires that a WKWebView engine plugin be installed in the Cordova project (e.g. [cordova-plugin-wkwebview-engine](https://github.com/apache/cordova-plugin-wkwebview-engine) or [cordova-plugin-ionic-webview](https://github.com/ionic-team/cordova-plugin-ionic-webview)).
     - __hidden__: set to `yes` to create the browser and load the page, but not show it. The loadstop event fires when loading is complete. Omit or set to `no` (default) to have the browser open and load normally.
-    - __beforeload__: set to `yes` to enable the `beforeload` event to modify which pages are actually loaded in the browser.
+    - __beforeload__: set to enable the `beforeload` event to modify which pages are actually loaded in the browser. Accepted values are `get` to intercept only GET requests, `post` to intercept on POST requests or `yes` to intercept both GET & POST requests. Note that POST requests are not currently supported and will be ignored (if you set `beforeload=post` it will raise an error).
     - __clearcache__: set to `yes` to have the browser's cookie cache cleared before the new window is opened
     - __clearsessioncache__: set to `yes` to have the session cookie cache cleared before the new window is opened. For WKWebView, requires iOS 11+ on target device.
     - __cleardata__: set to `yes` to have the browser's entire local storage cleared (cookies, HTML5 local storage, IndexedDB, etc.) before the new window is opened
@@ -212,7 +212,8 @@ The object returned from a call to `cordova.InAppBrowser.open` when the target i
   - __loadstop__: event fires when the `InAppBrowser` finishes loading a URL.
   - __loaderror__: event fires when the `InAppBrowser` encounters an error when loading a URL.
   - __exit__: event fires when the `InAppBrowser` window is closed.
-  - __beforeload__: event fires when the `InAppBrowser` decides whether to load an URL or not (only with option `beforeload=yes`).
+  - __beforeload__: event fires when the `InAppBrowser` decides whether to load an URL or not (only with option `beforeload` set).
+  - __message__: event fires when the `InAppBrowser` receives a message posted from the page loaded inside the `InAppBrowser` Webview.
 
 - __callback__: the function that executes when the event fires. The function is passed an `InAppBrowserEvent` object as a parameter.
 
@@ -238,6 +239,7 @@ function showHelp(url) {
 
     inAppBrowserRef.addEventListener('beforeload', beforeloadCallBack);
 
+    inAppBrowserRef.addEventListener('message', messageCallBack);
 }
 
 function loadStartCallBack() {
@@ -251,6 +253,13 @@ function loadStopCallBack() {
     if (inAppBrowserRef != undefined) {
 
         inAppBrowserRef.insertCSS({ code: "body{font-size: 25px;" });
+
+        inAppBrowserRef.executeScript({ code: "\
+            var message = 'this is the message';\
+            var messageObj = {my_message: message};\
+            var stringifiedMessageObj = JSON.stringify(messageObj);\
+            webkit.messageHandlers.cordova_iab.postMessage(stringifiedMessageObj);"
+        });
 
         $('#status-message').text("");
 
@@ -300,17 +309,23 @@ function beforeloadCallback(params, callback) {
 
 }
 
+function messageCallback(params){
+    $('#status-message').text("message received: "+params.data.my_message);
+}
+
 ```
 
 ### InAppBrowserEvent Properties
 
-- __type__: the eventname, either `loadstart`, `loadstop`, `loaderror`, or `exit`. _(String)_
+- __type__: the eventname, either `loadstart`, `loadstop`, `loaderror`, `message` or `exit`. _(String)_
 
 - __url__: the URL that was loaded. _(String)_
 
 - __code__: the error code, only in the case of `loaderror`. _(Number)_
 
 - __message__: the error message, only in the case of `loaderror`. _(String)_
+
+- __data__: the message contents , only in the case of `message`. A stringified JSON object. _(String)_
 
 
 ### Supported Platforms
@@ -323,7 +338,11 @@ function beforeloadCallback(params, callback) {
 
 ### Browser Quirks
 
-`loadstart` and `loaderror` events are not being fired.
+`loadstart`, `loaderror`, `message` events are not fired.
+
+### Windows Quirks
+
+`message` event is not fired.
 
 ### Quick Example
 
@@ -344,6 +363,7 @@ function beforeloadCallback(params, callback) {
   - __loadstop__: event fires when the `InAppBrowser` finishes loading a URL.
   - __loaderror__: event fires when the `InAppBrowser` encounters an error loading a URL.
   - __exit__: event fires when the `InAppBrowser` window is closed.
+  - __message__: event fires when the `InAppBrowser` receives a message posted from the page loaded inside the `InAppBrowser` Webview.
 
 - __callback__: the function to execute when the event fires.
 The function is passed an `InAppBrowserEvent` object.
