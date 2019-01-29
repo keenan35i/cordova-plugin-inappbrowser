@@ -36,7 +36,7 @@
 #define    IAB_BRIDGE_NAME @"cordova_iab"
 
 #define    TOOLBAR_HEIGHT 44.0
-#define    STATUSBAR_HEIGHT 64.0
+#define    STATUSBAR_HEIGHT 0.0
 #define    LOCATIONBAR_HEIGHT 21.0
 #define    FOOTER_HEIGHT ((TOOLBAR_HEIGHT) + (LOCATIONBAR_HEIGHT))
 
@@ -1095,7 +1095,7 @@ BOOL isExiting = FALSE;
         viewRenderedAtLeastOnce = TRUE;
         CGRect viewBounds = [self.webView bounds];
         viewBounds.origin.y = STATUSBAR_HEIGHT;
-        viewBounds.size.height = viewBounds.size.height - STATUSBAR_HEIGHT;
+        viewBounds.size.height = viewBounds.size.height - 75;
         self.webView.frame = viewBounds;
         [[UIApplication sharedApplication] setStatusBarStyle:[self preferredStatusBarStyle]];
     }
