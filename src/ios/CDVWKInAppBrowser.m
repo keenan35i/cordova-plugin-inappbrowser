@@ -1095,7 +1095,7 @@ BOOL isExiting = FALSE;
         viewRenderedAtLeastOnce = TRUE;
         CGRect viewBounds = [self.webView bounds];
         viewBounds.origin.y = STATUSBAR_HEIGHT;
-        viewBounds.size.height = viewBounds.size.height - 75;
+        viewBounds.size.height = viewBounds.size.height - STATUSBAR_HEIGHT;
         self.webView.frame = viewBounds;
         [[UIApplication sharedApplication] setStatusBarStyle:[self preferredStatusBarStyle]];
     }
