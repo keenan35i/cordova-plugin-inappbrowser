@@ -97,8 +97,8 @@
             }
         },
         
-        changeUserAgent: function (eventname) {
-            exec(null, null, 'InAppBrowser', 'changeUserAgent', [eventname]);
+        changeUserAgent: function (userAgent) {
+            exec(null, null, 'InAppBrowser', 'changeUserAgent', [userAgent]);
         }
     };
 
