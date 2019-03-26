@@ -95,6 +95,10 @@
             } else {
                 throw new Error('insertCSS requires exactly one of code or file to be specified');
             }
+        },
+        
+        changeUserAgent: function (eventname) {
+            exec(null, null, 'InAppBrowser', 'changeUserAgent', []);
         }
     };
 
