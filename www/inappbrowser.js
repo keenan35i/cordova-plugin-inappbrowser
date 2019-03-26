@@ -98,7 +98,7 @@
         },
         
         changeUserAgent: function (eventname) {
-            exec(null, null, 'InAppBrowser', 'changeUserAgent', []);
+            exec(null, null, 'InAppBrowser', 'changeUserAgent', [eventname]);
         }
     };
 
