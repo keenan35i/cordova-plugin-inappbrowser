@@ -94,6 +94,13 @@
     }
 }
 
+- (void)changeUserAgent:(CDVInvokedUrlCommand*)command
+{
+    if(self.usewkwebview){
+        [[CDVWKInAppBrowser getInstance] changeUserAgent:command];
+    }
+}
+
 - (void)injectScriptFile:(CDVInvokedUrlCommand*)command
 {
      if(self.usewkwebview){
