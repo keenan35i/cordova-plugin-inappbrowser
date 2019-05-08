@@ -746,6 +746,7 @@ BOOL isExiting = FALSE;
     [configuration.userContentController addScriptMessageHandler:self name:IAB_BRIDGE_NAME];
     
     //WKWebView options
+    configuration.suppressesIncrementalRendering = true;
     configuration.allowsInlineMediaPlayback = _browserOptions.allowinlinemediaplayback;
     if (IsAtLeastiOSVersion(@"10.0")) {
         configuration.ignoresViewportScaleLimits = _browserOptions.enableviewportscale;
@@ -764,7 +765,6 @@ BOOL isExiting = FALSE;
     
     [self.view addSubview:self.webView];
     [self.view sendSubviewToBack:self.webView];
-    
     
     self.webView.navigationDelegate = self;
     self.webView.UIDelegate = self.webViewUIDelegate;
