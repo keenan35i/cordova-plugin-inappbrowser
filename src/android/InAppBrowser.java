@@ -957,13 +957,24 @@ public class InAppBrowser extends CordovaPlugin {
                 });
                 currentClient = new InAppBrowserClient(thatWebView, edittext, beforeload);
                 inAppWebView.setWebViewClient(currentClient);
-                inAppWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
                 WebSettings settings = inAppWebView.getSettings();
                 settings.setJavaScriptEnabled(true);
                 settings.setJavaScriptCanOpenWindowsAutomatically(true);
-                settings.setBuiltInZoomControls(showZoomControls);
                 settings.setPluginState(android.webkit.WebSettings.PluginState.ON);
                 settings.setRenderPriority(RenderPriority.HIGH);
+                settings.setUseWideViewPort(true);
+                settings.setSupportZoom(true);
+                settings.setBuiltInZoomControls(false);
+                settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+                settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+                settings.setDomStorageEnabled(true);
+                inAppWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+                inAppWebView.setScrollbarFadingEnabled(true);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                     mWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+                } else {
+                     mWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+                }
 
                 // Add postMessage interface
                 class JsObject {
