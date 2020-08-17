@@ -971,9 +971,9 @@ public class InAppBrowser extends CordovaPlugin {
                 inAppWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
                 inAppWebView.setScrollbarFadingEnabled(true);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                     mWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+                     inAppWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
                 } else {
-                     mWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+                     inAppWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
                 }
 
                 // Add postMessage interface
