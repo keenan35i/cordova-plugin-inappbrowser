@@ -957,11 +957,13 @@ public class InAppBrowser extends CordovaPlugin {
                 });
                 currentClient = new InAppBrowserClient(thatWebView, edittext, beforeload);
                 inAppWebView.setWebViewClient(currentClient);
+                inAppWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
                 WebSettings settings = inAppWebView.getSettings();
                 settings.setJavaScriptEnabled(true);
                 settings.setJavaScriptCanOpenWindowsAutomatically(true);
                 settings.setBuiltInZoomControls(showZoomControls);
                 settings.setPluginState(android.webkit.WebSettings.PluginState.ON);
+                settings.setRenderPriority(RenderPriority.HIGH);
 
                 // Add postMessage interface
                 class JsObject {
