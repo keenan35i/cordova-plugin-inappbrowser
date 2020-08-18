@@ -967,6 +967,7 @@ public class InAppBrowser extends CordovaPlugin {
                 settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
                 settings.setUseWideViewPort(true);
                 settings.setBuiltInZoomControls(false);
+                settings.setRenderPriority(WebSettings.RenderPriority.HIGH);
                 
                 inAppWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
                 inAppWebView.setScrollbarFadingEnabled(true);
