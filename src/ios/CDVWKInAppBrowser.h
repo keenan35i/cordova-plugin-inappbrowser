@@ -28,7 +28,6 @@
 
 @interface CDVWKInAppBrowser : CDVPlugin {
     UIWindow * tmpWindow;
-
     @private
     NSString* _beforeload;
     BOOL _waitForBeforeload;
@@ -50,10 +49,12 @@
 
 @end
 
-@interface CDVWKInAppBrowserViewController : UIViewController <CDVScreenOrientationDelegate,WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler,UIAdaptivePresentationControllerDelegate>{
+@interface CDVWKInAppBrowserViewController : UIViewController <CDVScreenOrientationDelegate,WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler>{
     @private
+    NSString* _userAgent;
+    NSString* _prevUserAgent;
+    NSInteger _userAgentLockToken;
     CDVInAppBrowserOptions *_browserOptions;
-    NSDictionary *_settings;
 }
 
 @property (nonatomic, strong) IBOutlet WKWebView* webView;
@@ -74,8 +75,8 @@
 - (void)navigateTo:(NSURL*)url;
 - (void)showLocationBar:(BOOL)show;
 - (void)showToolBar:(BOOL)show : (NSString *) toolbarPosition;
-- (void)setCloseButtonTitle:(NSString*)title : (NSString*) colorString : (int) buttonIndex;
+- (void)setCloseButtonTitle:(NSString*)title : (NSString*) colorString;
 
-- (id)initWithBrowserOptions: (CDVInAppBrowserOptions*) browserOptions andSettings:(NSDictionary*) settings;
+- (id)initWithUserAgent:(NSString*)userAgent prevUserAgent:(NSString*)prevUserAgent browserOptions: (CDVInAppBrowserOptions*) browserOptions;
 
 @end
