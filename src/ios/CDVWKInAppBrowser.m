@@ -437,7 +437,7 @@ static CDVWKInAppBrowser* instance = nil;
 
 - (void)changeUserAgent:(CDVInvokedUrlCommand*)command
 {
-        self.inAppBrowserViewController.webView.customUserAgent = [command];
+        self.webView.customUserAgent = "test";
 }
 
 - (void)injectScriptFile:(CDVInvokedUrlCommand*)command
