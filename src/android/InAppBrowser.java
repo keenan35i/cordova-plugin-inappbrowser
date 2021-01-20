@@ -773,7 +773,7 @@ public class InAppBrowser extends CordovaPlugin {
                 };
 
                 // Let's create the main dialog
-                dialog = new InAppBrowserDialog(cordova.getActivity(), android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                dialog = new InAppBrowserDialog(cordova.getActivity(), android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
                 dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
                 dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -1062,7 +1062,7 @@ public class InAppBrowser extends CordovaPlugin {
                 // the goal of openhidden is to load the url and not display it
                 // Show() needs to be called to cause the URL to be loaded
                 if(openWindowHidden) {
-                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                     dialog.hide()
                 }
             }
         };
