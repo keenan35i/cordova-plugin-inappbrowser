@@ -774,7 +774,6 @@ public class InAppBrowser extends CordovaPlugin {
 
                 // Let's create the main dialog
                 dialog = new InAppBrowserDialog(cordova.getActivity(), android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
-                dialog.getWindow().setWindowAnimations(android.R.style.DialogNoAnimation);
                 dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setCancelable(true);
