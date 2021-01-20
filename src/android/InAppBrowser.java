@@ -768,9 +768,9 @@ public class InAppBrowser extends CordovaPlugin {
             public void run() {
 
                 // CB-6702 InAppBrowser hangs when opening more than one instance
-                /*if (dialog != null) {
+                if (dialog != null) {
                     dialog.dismiss();
-                };*/
+                };
 
                 // Let's create the main dialog
                 dialog = new InAppBrowserDialog(cordova.getActivity(), android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
