@@ -1218,7 +1218,7 @@ BOOL isExiting = FALSE;
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     if ((self.orientationDelegate != nil) && [self.orientationDelegate respondsToSelector:@selector(supportedInterfaceOrientations)]) {
         return [self.orientationDelegate supportedInterfaceOrientations];
@@ -1227,14 +1227,6 @@ BOOL isExiting = FALSE;
     return 1 << UIInterfaceOrientationPortrait;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    if ((self.orientationDelegate != nil) && [self.orientationDelegate respondsToSelector:@selector(shouldAutorotateToInterfaceOrientation:)]) {
-        return [self.orientationDelegate shouldAutorotateToInterfaceOrientation:interfaceOrientation];
-    }
-    
-    return YES;
-}
 
 
 @end //CDVWKInAppBrowserViewController
